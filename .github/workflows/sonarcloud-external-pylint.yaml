@@ -1,0 +1,35 @@
+#
+# 
+#
+name: Just for testing
+on:
+  push:
+    branches:
+      - '*'
+
+jobs:
+  debug_init:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+      - name: pwd
+        run: pwd
+      - name: ls
+        run: echo "$(ls .)"
+      - name: tree
+        run: echo "$(tree .)"
+
+  job1:
+    runs-on: ubuntu-latest
+    container:
+      image: python:3.8-slim-buster
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+      
+      - name: Install curl and jq
+        run: |
+          apt-get update
+          apt-get install -y curl jq
